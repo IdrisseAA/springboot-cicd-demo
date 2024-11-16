@@ -34,19 +34,17 @@ jobs:
       - name: Rename jar
         run: mv target/*.jar target/app.jar
 
-      - name: copy file via ssh password
-        run: |
-          echo "Copying files to local folder..."
-          cp target/app.jar ~/spring_boot_cicd_demo/
+      - name: Copy Jar File
+        run: cp target/app.jar ~/spring_boot_cicd_demo/
 
   run-jar:
-      name: Run App
-      runs-on: self-hosted
-      needs: build
-      steps:
-        - name: run the app
-          run: |
-            echo "Creating a symbolic link to the app.jar..."
-            echo ${{ secrets.PASSWORD }} | sudo -S ln -sf ~/spring_boot_cicd_demo/app.jar /etc/init.d/app
-            echo "Starting the service..."
-            echo ${{ secrets.PASSWORD }} | sudo -S /etc/init.d/app start
+    name: Run App
+    runs-on: self-hosted
+    needs: build
+    steps:
+      - name: Start the app in the background
+        run: |
+          echo "Stopping any existing app instances..."
+          pkill -f 'java -jar /home/idi/spring_boot_cicd_demo/app.jar' || true
+          echo "Starting the app as a background process..."
+          nohup /usr/bin/java -jar /home/idi/spring_boot_cicd_demo/app.jar > ~/spring_boot_cicd_demo/app.log 2>&1 &
