@@ -28,9 +28,9 @@ jobs:
           cache: maven
 
       - name: Set up Maven
-        uses: s4u/maven-settings-action@v2
-        with:
-          maven-version: 3.9.8
+        run: |
+          curl -sL https://archive.apache.org/dist/maven/maven-3/3.9.5/binaries/apache-maven-3.9.5-bin.tar.gz | tar xz -C /opt
+          sudo ln -s /opt/apache-maven-3.9.5/bin/mvn /usr/local/bin/mvn
 
       - name: Build with Maven
         run: mvn -Dmaven.test.skip=true -B package --file pom.xml
