@@ -7,7 +7,7 @@ on:
 
 jobs:
   create-folder:
-    name: create-folder
+    name: Create Folder
     runs-on: self-hosted
     steps:
       - name: Create folder on the local WSL2 environment
@@ -40,7 +40,7 @@ jobs:
           cp target/app.jar ~/spring_boot_cicd_demo/
 
   run-jar:
-      name: run jar
+      name: Run App
       runs-on: self-hosted
       needs: build
       steps:
@@ -49,4 +49,4 @@ jobs:
             echo "Creating a symbolic link to the app.jar..."
             echo ${{ secrets.PASSWORD }} | sudo -S ln -sf ~/spring_boot_cicd_demo/app.jar /etc/init.d/app
             echo "Starting the service..."
-            echo ${{ secrets.PASSWORD }} | sudo -S app.service start
+            echo ${{ secrets.PASSWORD }} | sudo -S service app start
