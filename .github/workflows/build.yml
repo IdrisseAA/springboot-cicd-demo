@@ -50,5 +50,3 @@ jobs:
           echo ${{ secrets.PASSWORD }} | sudo -S ln -sf ~/spring_boot_cicd_demo/app.jar /etc/init.d/app
           echo "Starting the service..."
           echo ${{ secrets.PASSWORD }} | sudo -S /etc/init.d/app start
-
-
