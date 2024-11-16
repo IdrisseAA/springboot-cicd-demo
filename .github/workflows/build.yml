@@ -11,7 +11,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Create folder on the local WSL2 environment
-        run: rm -rf ~/springboot_cicd_demo && mkdir -p ~/springboot_cicd_demo
+        run: rm -rf ~/spring_boot_cicd_demo && mkdir -p ~/spring_boot_cicd_demo
 
   build:
     name: Build Project
