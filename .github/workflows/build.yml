@@ -46,7 +46,7 @@ jobs:
     steps:
       - name: run the app
         run: |
-          sudo ln -sf ~/springboot_cicd_demo/app.jar /etc/init.d/app
-          sudo service start app
+          ln -sf ~/springboot_cicd_demo/app.jar /usr/local/bin/app
+          service start app
 
 
