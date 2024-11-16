@@ -16,8 +16,9 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
-        port: ${{ secrets.PORT }}
-        script: whoami
+        port: 22
+        script: |
+          echo "Connected successfully!"
   build:
     runs-on: ubuntu-latest
     steps:
