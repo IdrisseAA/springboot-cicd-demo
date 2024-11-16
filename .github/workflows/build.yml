@@ -40,13 +40,13 @@ jobs:
           cp target/app.jar ~/springboot_cicd_demo/
 
   run-script:
-  name: run script
-  runs-on: self-hosted
-  needs: build
-  steps:
-    - name: run the app
-      run: |
-        ln -sf ~/springboot_cicd_demo/app.jar /etc/init.d/app
-        service start app
+    name: run script
+    runs-on: self-hosted
+    needs: build
+    steps:
+      - name: run the app
+        run: |
+          ln -sf ~/springboot_cicd_demo/app.jar /etc/init.d/app
+          service start app
 
 
