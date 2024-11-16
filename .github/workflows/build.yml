@@ -37,17 +37,17 @@ jobs:
       - name: copy file via ssh password
         run: |
           echo "Copying files to local folder..."
-          cp target/app.jar ~/springboot_cicd_demo/
+          cp target/app.jar ~/spring_boot_cicd_demo/
 
-  run-script:
-    name: run script
+  run-jar:
+    name: run jar
     runs-on: self-hosted
     needs: build
     steps:
       - name: run the app
         run: |
           echo "Creating a symbolic link to the app.jar..."
-          echo ${{ secrets.PASSWORD }} | sudo -S ln -sf ~/springboot_cicd_demo/app.jar /etc/init.d/app
+          echo ${{ secrets.PASSWORD }} | sudo -S ln -sf ~/spring_boot_cicd_demo/app.jar /etc/init.d/app
           echo "Starting the service..."
           echo ${{ secrets.PASSWORD }} | sudo -S /etc/init.d/app start
 
