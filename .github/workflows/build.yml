@@ -16,6 +16,7 @@ jobs:
   build:
     name: Build Project
     runs-on: self-hosted
+    needs: create-folder
     steps:
       - name: Clone Repository
         uses: actions/checkout@v4
@@ -34,7 +35,6 @@ jobs:
         run: mv target/*.jar target/app.jar
 
       - name: copy file via ssh password
-        needs: create-folder
         run: |
           echo "Copying files to local folder..."
           cp target/app.jar ~/springboot_cicd_demo/
