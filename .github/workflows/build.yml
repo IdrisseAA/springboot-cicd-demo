@@ -40,7 +40,7 @@ jobs:
           cp target/app.jar ~/springboot_cicd_demo/
 
   run-script:
-  name: run-script
+  name: run script
   runs-on: self-hosted
   needs: build
   steps:
