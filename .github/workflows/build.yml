@@ -29,3 +29,14 @@ jobs:
 
       - name: Build with Maven
         run: mvn -Dmaven.test.skip=true -B package --file pom.xml
+
+      - name: Rename jar
+        run: mv target/*.jar target/app.jar
+
+      - name: copy file via ssh password
+        needs: create-folder
+        run: |
+          echo "Copying files to local folder..."
+          cp target/app.jar ~/springboot_cicd_demo/
+
+
