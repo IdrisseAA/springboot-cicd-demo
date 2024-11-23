@@ -12,12 +12,12 @@ import java.util.List;
 @RequestMapping(path="/api/", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SaController {
 
-    @GetMapping("sa/")
+    @GetMapping("sa")
     public List<Object> search (){
         return List.of(new Sa(1, "Belle Formation", 1));
     }
 
-    @GetMapping("welcome/")
+    @GetMapping("welcome")
     public String welcome (){
         return "Welcome";
 
