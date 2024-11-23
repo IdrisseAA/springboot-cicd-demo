@@ -3,20 +3,11 @@ name: Project Construction
 on:
   push:
     branches: [ "main" ]
-  workflow_dispatch:
 
 jobs:
-  create-folder:
-    name: Create Folder
-    runs-on: self-hosted
-    steps:
-      - name: Create folder on the local WSL2 environment
-        run: rm -rf ~/spring_boot_cicd_demo && mkdir -p ~/spring_boot_cicd_demo
-
   build:
     name: Build Project
-    runs-on: self-hosted
-    needs: create-folder
+    runs-on: ubuntu-latest
     steps:
       - name: Clone Repository
         uses: actions/checkout@v4
@@ -29,22 +20,27 @@ jobs:
           cache: maven
 
       - name: Build with Maven
-        run: mvn -Dmaven.test.skip=true -B package --file pom.xml
+        run: mvn clean install -DskipTests
 
-      - name: Rename jar
-        run: mv target/*.jar target/app.jar
+      - name: Login to Docker Hub
+        run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
 
-      - name: Copy Jar File
-        run: cp target/app.jar ~/spring_boot_cicd_demo/
+      - name: Build docker image
+        run: docker build -t idrisseaa/springboot-cicd-demo .
+      - name: Publish image to dockerhub
+        run: docker push idrisseaa/springboot-cicd-demo
 
-  run-jar:
-    name: Run App
-    runs-on: self-hosted
+
+  deploy:
+    name: Deploy app
     needs: build
+    runs-on: [aws-ec2]
     steps:
-      - name: Start the app in the background
-        run: |
-          echo "Stopping any existing app instances..."
-          pkill -f 'java -jar /home/idi/spring_boot_cicd_demo/app.jar' || true
-          echo "Starting the app as a background process..."
-          nohup /usr/bin/java -jar /home/idi/spring_boot_cicd_demo/app.jar > ~/spring_boot_cicd_demo/app.log 2>&1 &
+      - name: Pull Image from docker hub
+        run: docker pull idrisseaa/springboot-cicd-demo
+
+      - name: Delete old container
+        run: docker rm -f springboot-cicd-demo-container
+
+      - name: Run docker container
+        run: docker run -d -p 8080:8080 --name springboot-cicd-demo-container idrisseaa/springboot-cicd-demo
