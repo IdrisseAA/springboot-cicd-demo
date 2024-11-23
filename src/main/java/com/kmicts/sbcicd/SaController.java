@@ -17,4 +17,9 @@ public class SaController {
         return List.of(new Sa(1, "Belle Formation", 1));
     }
 
+    @GetMapping
+    public String welcome (){
+        return "Welcome";
+    }
+
 }
