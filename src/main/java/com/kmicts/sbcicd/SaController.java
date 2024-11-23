@@ -20,7 +20,6 @@ public class SaController {
     @GetMapping("welcome")
     public String welcome (){
         return "Welcome";
-
 }
 
 }
