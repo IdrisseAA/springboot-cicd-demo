@@ -33,7 +33,7 @@ jobs:
   deploy:
     name: Deploy app
     needs: build
-    runs-on: [spingboot-cicd-aws-ec2-runner]
+    runs-on: [aws-ec2-cicd-demo]
     steps:
       - name: Pull Image from docker hub
         run: docker pull idrisseaa/springboot-cicd-demo
