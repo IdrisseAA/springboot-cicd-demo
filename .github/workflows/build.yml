@@ -30,7 +30,6 @@ jobs:
       - name: Publish image to dockerhub
         run: docker push idrisseaa/springboot-cicd-demo
 
-
   deploy:
     name: Deploy app
     needs: build
