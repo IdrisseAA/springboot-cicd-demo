@@ -21,6 +21,6 @@ public class SaController {
     public String welcome (){
         return "Welcome";
 
-
+}
 
 }
