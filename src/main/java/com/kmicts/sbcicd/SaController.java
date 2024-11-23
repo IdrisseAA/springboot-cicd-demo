@@ -19,7 +19,7 @@ public class SaController {
 
     @GetMapping("welcome")
     public String welcome (){
-        return "Welcome";
+        return "Welcome to this ci cd try";
 }
 
 }
