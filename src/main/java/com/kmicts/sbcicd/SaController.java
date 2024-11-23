@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(path="sa", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path="cicd", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SaController {
 
     @GetMapping
