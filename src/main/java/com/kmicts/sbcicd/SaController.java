@@ -9,13 +9,17 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(path="cicd", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path="/api/", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SaController {
 
-    @GetMapping
+    @GetMapping("sa/")
     public List<Object> search (){
         return List.of(new Sa(1, "Belle Formation", 1));
     }
+
+    @GetMapping("welcome/")
+    public String welcome (){
+        return "Welcome";
 
 
 
