@@ -35,8 +35,11 @@ jobs:
     needs: build
     runs-on: self-hosted
     steps:
+      - name: Login to Docker Hub
+        run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+
       - name: Pull Image from docker hub
-        run: docker pull idrisseaa/springboot-cicd-demo
+        run: docker pull idrisseaa/springboot-cicd-demo:latest
 
       - name: Delete old container
         run: docker rm -f springboot-cicd-demo-container
